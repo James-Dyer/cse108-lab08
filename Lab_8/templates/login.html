@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Student Enrollment System{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-box">
+        <h1>Login</h1>
+        <p class="login-subtitle">Please enter your credentials to access the system</p>
+        
+        <form method="POST" action="{{ url_for('login') }}" class="login-form">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required autofocus>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+        
+        <div class="login-info">
+            <h3>Demo Accounts:</h3>
+            <ul>
+                <li><strong>Admin:</strong> username: <code>admin</code>, password: <code>admin123</code></li>
+                <li><strong>Teacher:</strong> username: <code>teacher1</code>, password: <code>teacher123</code></li>
+                <li><strong>Student:</strong> username: <code>student1</code>, password: <code>student123</code></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

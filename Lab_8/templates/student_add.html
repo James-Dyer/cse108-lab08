@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Available Courses - Student{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Available Courses</h1>
+    <a href="{{ url_for('student_courses') }}" class="btn btn-secondary">My Courses</a>
+</div>
+
+{% if courses %}
+    <div class="courses-grid">
+        {% for course in courses %}
+            <div class="course-card {% if course.is_full %}course-full{% endif %} {% if course.is_enrolled %}course-enrolled{% endif %}">
+                <div class="course-header">
+                    <h2>{{ course.name }}</h2>
+                    <span class="badge badge-department">{{ course.department }}</span>
+                </div>
+                <div class="course-info">
+                    <p><strong>Department:</strong> {{ course.department }}</p>
+                    <p><strong>Enrollment:</strong> {{ course.enrolled }} / {{ course.capacity }} students</p>
+                    <p><strong>Available Spots:</strong> 
+                        {% if course.is_full %}
+                            <span class="text-danger">Full</span>
+                        {% else %}
+                            <span class="text-success">{{ course.available }} spots available</span>
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="course-actions">
+                    {% if course.is_enrolled %}
+                        <button class="btn btn-secondary btn-sm" disabled>Already Enrolled</button>
+                    {% elif course.is_full %}
+                        <button class="btn btn-danger btn-sm" disabled>Course Full</button>
+                    {% else %}
+                        <form method="POST" action="{{ url_for('student_enroll', course_id=course.id) }}" 
+                              onsubmit="return confirm('Enroll in {{ course.name }}?');" style="display: inline;">
+                            <button type="submit" class="btn btn-success btn-sm">Enroll</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-state">
+        <p>No courses available at this time.</p>
+    </div>
+{% endif %}
+{% endblock %}

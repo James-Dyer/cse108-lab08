@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}My Courses - Student{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>My Enrolled Courses</h1>
+    <a href="{{ url_for('student_add') }}" class="btn btn-primary">Add New Course</a>
+</div>
+
+{% if courses %}
+    <div class="courses-grid">
+        {% for course in courses %}
+            <div class="course-card">
+                <div class="course-header">
+                    <h2>{{ course.name }}</h2>
+                    <span class="badge badge-department">{{ course.department }}</span>
+                </div>
+                <div class="course-info">
+                    <p><strong>Department:</strong> {{ course.department }}</p>
+                    <p><strong>Capacity:</strong> {{ course.enrolled }} / {{ course.capacity }} students</p>
+                    {% if course.grade is not none %}
+                        <p class="grade-display"><strong>Grade:</strong> <span class="grade-value">{{ course.grade }}</span></p>
+                    {% else %}
+                        <p class="grade-display"><strong>Grade:</strong> <span class="grade-pending">Not yet assigned</span></p>
+                    {% endif %}
+                </div>
+                <form method="POST" action="{{ url_for('student_drop', course_id=course.id) }}" 
+                      onsubmit="return confirm('Are you sure you want to drop this course?');" 
+                      class="course-actions">
+                    <button type="submit" class="btn btn-danger btn-sm">Drop Course</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-state">
+        <p>You are not enrolled in any courses yet.</p>
+        <a href="{{ url_for('student_add') }}" class="btn btn-primary">Browse Available Courses</a>
+    </div>
+{% endif %}
+{% endblock %}

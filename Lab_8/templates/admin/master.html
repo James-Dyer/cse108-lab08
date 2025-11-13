@@ -1,0 +1,19 @@
+{% extends admin_base_template %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block access_control %}
+    {% if session.logged_in and session.role == 'admin' %}
+        <div style="float: right; margin-top: 8px; margin-right: 20px;">
+            <span style="color: #fff; margin-right: 10px;">Welcome, {{ session.username }}</span>
+            <a href="{{ url_for('index') }}" class="btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-home"></span> Home
+            </a>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger btn-xs">
+                <span class="glyphicon glyphicon-log-out"></span> Logout
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}
