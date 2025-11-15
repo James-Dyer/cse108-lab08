@@ -88,6 +88,29 @@ The app runs on `http://localhost:5173`
 
 Use the Flask-Admin interface to create users and classes.
 
+## Suggested Demo Flow
+
+For your lab/demo, you can follow this sequence to showcase all three roles:
+
+1. **Admin role**
+   - Log in as **`admin` / `admin123`**.
+   - Show the **Admin Dashboard** in the React app.
+   - Click **“Open Admin Panel”** to show Flask‑Admin at `http://localhost:5000/admin` and briefly demonstrate CRUD on users/classes/enrollments.
+
+2. **Teacher role**
+   - Click **Logout** to return to the login page.
+   - Log in as **`ralph` / `teacher123`** (or another teacher).
+   - Show the **Teacher Dashboard**:
+     - “Your Courses” with the classes they teach.
+     - Click a course to show the enrolled students and demonstrate **inline grade editing**.
+
+3. **Student role**
+   - Click **Logout** to return to the login page.
+   - Log in as **`jose` / `student123`** (or another student).
+   - Show the **Student Dashboard**:
+     - “Your Courses” with current enrollments and grades.
+     - “Available Courses” and demonstrate **enrollment** (capacity and duplicate protections).
+
 ## Project Structure
 
 ```
