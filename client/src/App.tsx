@@ -14,6 +14,18 @@ type User = {
   last_name: string;
 };
 
+// Helper to normalize user object coming from the backend
+function normalizeUser(rawUser: any): User {
+  const role = (rawUser.role || '').toString().toLowerCase();
+  return {
+    id: rawUser.id,
+    username: rawUser.username,
+    role: role === 'student' || role === 'teacher' || role === 'admin' ? role : 'student',
+    first_name: rawUser.first_name ?? '',
+    last_name: rawUser.last_name ?? '',
+  };
+}
+
 function App() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -26,7 +38,7 @@ function App() {
     try {
       const data = await authAPI.checkAuth();
       if (data.authenticated && data.user) {
-        setUser(data.user);
+        setUser(normalizeUser(data.user));
       }
     } catch (err) {
       // Not authenticated
@@ -36,7 +48,7 @@ function App() {
   };
 
   const handleLoginSuccess = (loggedInUser: User) => {
-    setUser(loggedInUser);
+    setUser(normalizeUser(loggedInUser));
   };
 
   const handleLogout = () => {
