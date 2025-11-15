@@ -90,7 +90,7 @@ Use the Flask-Admin interface to create users and classes.
 
 ## Suggested Demo Flow
 
-For your lab/demo, you can follow this sequence to showcase all three roles:
+Follow this sequence to showcase all three roles:
 
 1. **Admin role**
    - Log in as **`admin` / `admin123`**.
